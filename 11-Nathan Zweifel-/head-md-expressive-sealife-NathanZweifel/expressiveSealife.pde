@@ -7,7 +7,7 @@ import spout.*;
 // DECLARE A SPOUT OBJECT
 Spout spout;
 
-boolean performanceRunning = false;
+boolean performanceRunning = true;
 
 
 //Jellyfish [] tabJelly = new Jellyfish[15];
@@ -31,12 +31,12 @@ float period = 300;
 float soundAvg = 0;
 int background = 120;
 boolean pressing = false;
-int transparency = 255;
+int transparency = 1;
 
 
 void setup() {
-  // size(1000, 600, P2D); // Modifier par Nico 20230502
-  //size(1920, 1080);
+  //size(1000, 600, P2D); // Modifier par Nico 20230502
+  // size(1920, 1080);
   // fullScreen(P2D,SPAN); // Modifier par Nico 20230502
   
   // PROJECTION SIZE
@@ -48,7 +48,6 @@ void setup() {
 
   // CREATE A NEW SPOUT OBJECT
   spout = new Spout(this);
-
   // GIVE THE SENDER A NAME
   // A sender can be given any name.
   // Otherwise the sketch folder name is used
@@ -146,7 +145,7 @@ void draw() {
   
   if(!performanceRunning){
      fill(0, 0, 0, transparency);
-     rect(0, 0, 0, width, height);
+     rect(0, 0, width*2, height*2);
      transparency++;
   }
   
@@ -200,26 +199,26 @@ void controllerChange(ControlChange change) {
   println("Number:" + change.number());
   println("Value:" + change.value());
 
-  if ( change.number() == 1 ) {
+  if ( change.number() == 74 ) {
     background = change.value();
     println(background);
   }
 
-  if ( change.number() == 2 ) {
+  if ( change.number() == 75 ) {
     println("in 2");
     for (int i = 0; i < swArray.length; i++) {
       swArray[i].r.set(swArray[i].r.size(), 50);
     }
   }
   
-  if ( change.number() == 3 ) {
+  if ( change.number() == 70 ) {
     println("in 3");
     for (int i = 0; i < flock.boids.size(); i++) {
         flock.boids.get(i).maxforce = map(change.value(), 0, 127, 0.005, 0.05);
     }
   }
   
-  if ( change.number() == 4 ) {
+  if ( change.number() == 71 ) {
     println("in 4");
     for (int i = 0; i < flock.boids.size(); i++) {
         flock.boids.get(i).maxspeed = map(change.value(), 0, 127, 1, 5);
